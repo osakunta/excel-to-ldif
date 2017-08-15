@@ -1,11 +1,7 @@
 from data.data import ldif_file
 from sample.validator import *
 
-# A File must be open and closed in the main file if used:
-# f = open(ldif_file, 'w')
-# f.close()
-
-def print_ldif_entry(cn, mail, mail_list):
+def print_ldif_entry(f, cn, email, mail_list):
     if not valid_email(email, False):
         return
 
@@ -14,7 +10,7 @@ def print_ldif_entry(cn, mail, mail_list):
     f.write('objectClass: extensibleObject\n')
     f.write('objectClass: organizationalRole\n')
     f.write('cn: ' + cn + '\n')
-    f.write('mail: ' + mail + '\n')
+    f.write('mail: ' + email + '\n')
     f.write('\n')
 
 def get_emails(mail, apartment_entry):
@@ -26,7 +22,7 @@ def get_emails(mail, apartment_entry):
 def apartment_emails(apartment_entry):
     return get_emails('email', apartment_entry) + get_emails('tenant', apartment_entry)
 
-def for_every_email_in(apartment, apartment_entry, mail_list):
+def for_every_email_in(f, apartment, apartment_entry, mail_list):
     entries = apartment_emails(apartment_entry)
 
     for i, entry in enumerate(entries):
@@ -36,13 +32,17 @@ def for_every_email_in(apartment, apartment_entry, mail_list):
         if i > 0:
             cn += '_' + str(i + 1)
 
-        print_ldif_entry(cn, entry.strip(), mail_list)
+        print_ldif_entry(f, cn, entry.strip(), mail_list)
 
-def create_entries_for_apartment(apartment, apartment_entry, mail_list):
-    for_every_email_in(apartment, apartment_entry, mail_list)
+def create_entries_for_apartment(f, apartment, apartment_entry, mail_list):
+    for_every_email_in(f, apartment, apartment_entry, mail_list)
 
 def write_ldif(residents):
+    f = open(ldif_file, 'w')
+
     for mail_list in residents:
         for apartment in residents[mail_list]:
             apartment_entry = residents[mail_list][apartment]
-            create_entries_for_apartment(apartment, apartment_entry, mail_list)
+            create_entries_for_apartment(f, apartment, apartment_entry, mail_list)
+
+    f.close()
