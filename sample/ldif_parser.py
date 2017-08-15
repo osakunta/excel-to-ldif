@@ -1,10 +1,14 @@
 from data.data import ldif_file
+from sample.validator import *
 
 # A File must be open and closed in the main file if used:
 # f = open(ldif_file, 'w')
 # f.close()
 
 def print_ldif_entry(cn, mail, mail_list):
+    if not valid_email(email, False):
+        return
+
     f.write('dn: cn=' + cn + ',ou=' + mail_list + ',ou=saatio,ou=lists,dc=satakuntatalo,dc=fi\n')
     f.write('objectClass: top\n')
     f.write('objectClass: extensibleObject\n')

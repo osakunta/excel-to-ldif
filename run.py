@@ -1,6 +1,6 @@
 from sample.excel_parser import *
 from sample.ldif_parser import *
-from sample.excel_validator import *
+from sample.validator import *
 
 # parse_all()
 

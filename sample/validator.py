@@ -8,13 +8,13 @@ from data.data import *
 from sample.cleaner import clean
 from sample.slack import *
 
-def validate_email(email, can_be_blank, line):
+def valid_email(email, can_be_blank):
     regex = re.compile(r"[^@\s]+@[^@\s]+\.[a-zA-Z0-9]+$")
 
     #print(email)
 
     if can_be_blank and email == '':
-        return
+        return True
 
     try:
         if not regex.match(email):
@@ -23,11 +23,18 @@ def validate_email(email, can_be_blank, line):
         email.encode('ascii')
 
     except UnicodeEncodeError or ValueError:
-        print('Invalid email address "' + email + '" on row ' + str(line))
+        return False
 
-def validate_emails(excel_sheet, mail_col):
+    return True
+
+def validate_emails(excel_sheet, mail_col, can_be_blank):
     for row in range(1, excel_sheet.nrows):
         emails = clean(excel_sheet.cell(row, mail_col).value).split('/')
 
         for email in emails:
-            validate_email(email, True, row + 1)
+            if not valid_email(email, can_be_blank):
+                slack_message(
+                    'Virheellinen sähköpostiosoite', 'Osoite "' + email + '" on virheellinen.',
+                    excel_sheet.name,
+                    str(row + 1)
+                )
