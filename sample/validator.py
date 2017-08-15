@@ -30,8 +30,10 @@ def validate_emails(excel_sheet, mail_col, can_be_blank):
 
         for email in emails:
             if not valid_email(email.strip(), can_be_blank):
-                print(slack_message(
-                    'Virheellinen sähköpostiosoite', 'Osoite "' + email + '" on virheellinen.',
-                    excel_sheet.name,
-                    str(row + 1)
-                ))
+                send_slack_notification(
+                    slack_message(
+                        'Virheellinen sähköpostiosoite', 'Osoite "' + email + '" on virheellinen.',
+                        excel_sheet.name,
+                        str(row + 1)
+                    )
+                )
