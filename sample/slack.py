@@ -7,9 +7,6 @@ def send_slack_notification(message):
     headers = {'Content-type': 'application/json'}
     request = requests.post(slack_webhook_url, headers=headers, data=json.dumps(message))
 
-    print(request.status_code)
-    print(request.content)
-
 # Return a dictionary which represents JSON body of the Slack notification POST request
 # Documentation can be found here: https://api.slack.com/docs/messages
 def slack_message(error, reason, where, line):
