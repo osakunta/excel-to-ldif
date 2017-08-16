@@ -30,11 +30,11 @@ def parse_emails(excel_sheet, mail_col, mail_entry, entry_required):
         if not entry_required:
             residents[mail_list][apartment] = {}
 
-        if entry_required and not (apartment in residents[mail_list]):
-            raise ValueError(
-                'Unknown apartment "' + apartment + '": Again renters, line ' + \
-                str(row + 1)
-            )
+        # if entry_required and not (apartment in residents[mail_list]):
+        #     raise ValueError(
+        #         'Unknown apartment "' + apartment + '": Again renters, line ' + \
+        #         str(row + 1)
+        #     )
 
         set_value(apartment, mail_entry, email)
 
