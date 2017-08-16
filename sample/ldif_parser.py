@@ -1,6 +1,19 @@
 from data.data import ldif_file
 from sample.validator import *
 
+def print_ldif_header(f):
+    f.write('dn: ou=talolaiset,ou=saatio,ou=lists,dc=satakuntatalo,dc=fi\n')
+    f.write('objectClass: top\n')
+    f.write('objectClass: organizationalUnit\n')
+    f.write('ou: talolaiset\n')
+    f.write('\n')
+
+    f.write('dn: ou=osakehuoneistot,ou=saatio,ou=lists,dc=satakuntatalo,dc=fi\n')
+    f.write('objectClass: top\n')
+    f.write('objectClass: organizationalUnit\n')
+    f.write('ou: osakehuoneistot\n')
+    f.write('\n')
+
 def print_ldif_entry(f, cn, email, mail_list):
     if not valid_email(email, False):
         return
@@ -39,6 +52,8 @@ def create_entries_for_apartment(f, apartment, apartment_entry, mail_list):
 
 def write_ldif(residents):
     f = open(ldif_file, 'w')
+
+    print_ldif_header(f)
 
     for mail_list in residents:
         for apartment in residents[mail_list]:
