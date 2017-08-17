@@ -7,4 +7,4 @@ from sample.validator import *
 # f.close()
 
 validate_emails(renters, 9, False)
-validate_emails(again_renters, 3, True)
+validate_emails(again_renters, 3)
