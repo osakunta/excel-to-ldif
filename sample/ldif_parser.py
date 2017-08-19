@@ -23,14 +23,11 @@ def get_emails(mail, apartment_entry):
 def apartment_emails(apartment_entry):
     return get_emails('email', apartment_entry) + get_emails('tenant', apartment_entry)
 
-def for_every_email_in(f, apartment_entry):
+def create_entries_for_apartment(f, apartment_entry):
     entries = apartment_emails(apartment_entry)
 
     for i, entry in enumerate(entries):
         print_ldif_entry(f, entry.strip())
-
-def create_entries_for_apartment(f, apartment_entry):
-    for_every_email_in(f, apartment_entry)
 
 def write_ldif(residents):
     f = open(ldif_file, 'w')

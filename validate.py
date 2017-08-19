@@ -6,5 +6,5 @@ from sample.validator import *
 # write_ldif(residents)
 # f.close()
 
-validate_emails(renters, 9, False)
+validate_emails(renters, 9)
 validate_emails(again_renters, 3)
