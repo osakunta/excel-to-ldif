@@ -1,6 +1,6 @@
-from sample.mail_list_generator import *
+from sample.mail_list_generator import MailListGenerator
 from sample.ldif_parser import LdifParser
 from data.data import ldif_file, residents
 
-parse_all()
+MailListGenerator().parse_all()
 LdifParser(ldif_file, residents).write_ldif()

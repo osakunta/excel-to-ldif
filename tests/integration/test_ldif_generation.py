@@ -1,5 +1,5 @@
 import unittest
-from sample.mail_list_generator import *
+from sample.mail_list_generator import MailListGenerator
 from sample.ldif_parser import LdifParser
 from data.data import ldif_file, residents
 import filecmp
@@ -10,7 +10,7 @@ import os
 class TestLdifGeneration(unittest.TestCase):
 
     def test_excel_with_invalid_values(self):
-        parse_all()
+        MailListGenerator().parse_all()
         LdifParser(ldif_file, residents).write_ldif()
 
         list_of_files = glob.glob('data/ldif/*.ldif')
