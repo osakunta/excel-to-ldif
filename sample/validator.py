@@ -1,12 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 import re
 
-# Contains all the excel and mail list data
-from data.data import *
 from sample.cleaner import clean
-from sample.slack import *
+from sample.slack import slack_message, send_slack_notification
 
 
 def valid_email(email):

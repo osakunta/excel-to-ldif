@@ -1,4 +1,4 @@
-from sample.validator import *
+from data.data import ldif_file, residents
 
 
 def print_ldif_header(f, mail_list):
@@ -9,7 +9,7 @@ def print_ldif_header(f, mail_list):
     f.write('cn: ' + mail_list + '\n')
 
 
-def write_ldif(residents):
+def write_ldif():
     f = open(ldif_file, 'w')
 
     for mail_list in residents:
