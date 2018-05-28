@@ -1,16 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Contains all the excel and mail list data
-from data.data import divider
 from sample.cleaner import clean
 from sample.validator import valid_email
 import json
 
 
 class MailListGenerator:
-    def __init__(self, excel_sheets, mail_list_names):
-        self.list_divider = divider
+    def __init__(self, excel_sheets, mail_list_names, list_divider):
+        self.list_divider = list_divider
 
         self.mail_lists = [
             {'name': mail_list_names[0], 'emails': []},
