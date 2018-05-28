@@ -8,9 +8,9 @@ class LdifParser:
         f = open(self.ldif_file_name, 'w')
 
         for mail_list in self.mail_lists:
-            f.write(self.__print_ldif_header(mail_list))
+            f.write(self.__print_ldif_header(mail_list['name']))
 
-            for email in self.mail_lists[mail_list]:
+            for email in mail_list['emails']:
                 f.write('mail: ' + email + '\n')
 
             f.write('\n')
@@ -18,13 +18,13 @@ class LdifParser:
         f.close()
 
     @staticmethod
-    def __print_ldif_header(mail_list):
+    def __print_ldif_header(mail_list_name):
         header = (
-            'dn: cn={mail_list},ou=saatio,ou=lists,dc=satakuntatalo,dc=fi\n'
+            'dn: cn={mail_list_name},ou=saatio,ou=lists,dc=satakuntatalo,dc=fi\n'
             'objectClass: top\n'
             'objectClass: extensibleObject\n'
             'objectClass: organizationalRole\n'
-            'cn: {mail_list}\n'
-        ).format(mail_list=mail_list)
+            'cn: {mail_list_name}\n'
+        ).format(mail_list_name=mail_list_name)
 
         return header
