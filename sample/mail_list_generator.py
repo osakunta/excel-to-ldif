@@ -2,17 +2,23 @@
 # -*- coding: utf-8 -*-
 
 # Contains all the excel and mail list data
-from data.data import list1, list2, divider, renters, again_renters, residents
+from data.data import list1, list2, divider, residents
 from sample.cleaner import clean
 from sample.validator import valid_email
 import json
 
 
 class MailListGenerator:
+    def __init__(self, excel_sheets):
+        self.excel_sheets_with_emails = [
+            {'sheet': excel_sheets[0], 'email_col': 9},
+            {'sheet': excel_sheets[1], 'email_col': 3}
+        ]
 
     def parse_all(self):
-        self.__parse_emails(renters, 9)
-        self.__parse_emails(again_renters, 3)
+        for sheet in self.excel_sheets_with_emails:
+            self.__parse_emails(sheet['sheet'], sheet['email_col'])
+
         #print(json.dumps(residents, indent=4, sort_keys=True))
 
     @staticmethod
