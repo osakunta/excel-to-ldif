@@ -33,28 +33,17 @@ class MailListGenerator:
         current_list_index = 0
 
         for row in range(1, excel_sheet.nrows):
-            apartment = clean(excel_sheet.cell(row, 0).value).replace(' ', '_')
-            emails = clean(excel_sheet.cell(row, mail_col).value).replace(' ', '')
+            apartment_cell = clean(excel_sheet.cell(row, 0).value)
+            emails_in_one_cell = clean(excel_sheet.cell(row, mail_col).value).split('/')
+            emails = list(filter(lambda email: valid_email(email), emails_in_one_cell))
 
-            self.__set_value(current_list_index, emails)
+            self.__extend_mail_list(current_list_index, emails)
 
-            if self.__reached_divider_row(apartment):
+            if self.__reached_divider_row(apartment_cell):
                 current_list_index = 1
 
-    @staticmethod
-    def __set_list_to(new_list):
-        global mail_list
-        mail_list = new_list
-
-    def __set_value(self, email_list_index, values):
-        if values:
-            emails = values.split('/')
-
-            for email in emails:
-                if not valid_email(email):
-                    emails.remove(email)
-
-            self.mail_lists[email_list_index]['emails'].extend(emails)
+    def __extend_mail_list(self, email_list_index, emails):
+        self.mail_lists[email_list_index]['emails'].extend(emails)
 
     def __reached_divider_row(self, apartment):
         return apartment == self.list_divider
