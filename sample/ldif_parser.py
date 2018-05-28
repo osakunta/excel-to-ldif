@@ -1,10 +1,8 @@
-from data.data import ldif_file, residents
-
 
 class LdifParser:
-    def __init__(self):
-        self.ldif_file_name = ldif_file
-        self.mail_lists = residents
+    def __init__(self, ldif_file_name, mail_lists):
+        self.ldif_file_name = ldif_file_name
+        self.mail_lists = mail_lists
 
     def write_ldif(self):
         f = open(self.ldif_file_name, 'w')
@@ -12,7 +10,7 @@ class LdifParser:
         for mail_list in self.mail_lists:
             f.write(self.__print_ldif_header(mail_list))
 
-            for email in residents[mail_list]:
+            for email in self.mail_lists[mail_list]:
                 f.write('mail: ' + email + '\n')
 
             f.write('\n')
