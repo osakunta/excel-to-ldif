@@ -27,9 +27,9 @@ class MailListGenerator:
             MailListGenerator.__change_list_if_right(apartment)
 
     @staticmethod
-    def __set_list_to(list):
+    def __set_list_to(new_list):
         global mail_list
-        mail_list = list
+        mail_list = new_list
 
     @staticmethod
     def __set_value(values):
