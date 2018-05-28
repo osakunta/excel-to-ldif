@@ -1,4 +1,4 @@
-from sample.excel_parser import *
+from sample.mail_list_generator import *
 from sample.ldif_parser import *
 
 parse_all()

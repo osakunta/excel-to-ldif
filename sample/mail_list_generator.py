@@ -4,41 +4,45 @@
 # Contains all the excel and mail list data
 from data.data import *
 from sample.cleaner import clean
+from sample.validator import valid_email
 import json
+
 
 def set_list_to(list):
     global mail_list
     mail_list = list
+
 
 def change_list_if_right(apartment):
     if apartment == divider:
         global mail_list
         mail_list = list2
 
-def set_value(apartment, key, value):
-    if value:
+
+def set_value(apartment, key, values):
+    if values:
         global residents
-        residents[mail_list][apartment][key] = value
+
+        emails = values.split('/')
+
+        for email in emails:
+            if not valid_email(email):
+                emails.remove(email)
+
+        residents[mail_list].extend(emails)
+
 
 def parse_emails(excel_sheet, mail_col, mail_entry, entry_required):
     set_list_to(list1)
 
     for row in range(1, excel_sheet.nrows):
         apartment = clean(excel_sheet.cell(row, 0).value).replace(' ', '_')
-        email = clean(excel_sheet.cell(row, mail_col).value)
+        emails = clean(excel_sheet.cell(row, mail_col).value).replace(' ', '')
 
-        if not entry_required:
-            residents[mail_list][apartment] = {}
-
-        # if entry_required and not (apartment in residents[mail_list]):
-        #     raise ValueError(
-        #         'Unknown apartment "' + apartment + '": Again renters, line ' + \
-        #         str(row + 1)
-        #     )
-
-        set_value(apartment, mail_entry, email)
+        set_value(apartment, mail_entry, emails)
 
         change_list_if_right(apartment)
+
 
 def parse_all():
     parse_emails(renters, 9, 'email', False)
