@@ -16,15 +16,20 @@ class MailListGenerator:
         #print(json.dumps(residents, indent=4, sort_keys=True))
 
     @staticmethod
+    def __parse_emails(excel_sheet, mail_col):
+        MailListGenerator.__set_list_to(list1)
+
+        for row in range(1, excel_sheet.nrows):
+            apartment = clean(excel_sheet.cell(row, 0).value).replace(' ', '_')
+            emails = clean(excel_sheet.cell(row, mail_col).value).replace(' ', '')
+
+            MailListGenerator.__set_value(emails)
+            MailListGenerator.__change_list_if_right(apartment)
+
+    @staticmethod
     def __set_list_to(list):
         global mail_list
         mail_list = list
-
-    @staticmethod
-    def __change_list_if_right(apartment):
-        if apartment == divider:
-            global mail_list
-            mail_list = list2
 
     @staticmethod
     def __set_value(values):
@@ -40,12 +45,7 @@ class MailListGenerator:
             residents[mail_list].extend(emails)
 
     @staticmethod
-    def __parse_emails(excel_sheet, mail_col):
-        MailListGenerator.__set_list_to(list1)
-
-        for row in range(1, excel_sheet.nrows):
-            apartment = clean(excel_sheet.cell(row, 0).value).replace(' ', '_')
-            emails = clean(excel_sheet.cell(row, mail_col).value).replace(' ', '')
-
-            MailListGenerator.__set_value(emails)
-            MailListGenerator.__change_list_if_right(apartment)
+    def __change_list_if_right(apartment):
+        if apartment == divider:
+            global mail_list
+            mail_list = list2
