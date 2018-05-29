@@ -8,9 +8,11 @@ class LdifParser:
         f = open(self.ldif_file_name, 'w')
 
         for mail_list in self.mail_lists:
+            unique_emails = sorted(set(mail_list['emails']))
+
             f.write(self.__print_ldif_header(mail_list['name']))
 
-            for email in mail_list['emails']:
+            for email in unique_emails:
                 f.write('mail: ' + email + '\n')
 
             f.write('\n')

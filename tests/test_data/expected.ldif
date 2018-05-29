@@ -3,10 +3,10 @@ objectClass: top
 objectClass: extensibleObject
 objectClass: organizationalRole
 cn: talolaiset
+mail: test10@test.test
 mail: test1@test.test
 mail: test2@test.test
 mail: test3@test.test
-mail: test10@test.test
 
 dn: cn=osakehuoneistot,ou=saatio,ou=lists,dc=satakuntatalo,dc=fi
 objectClass: top
